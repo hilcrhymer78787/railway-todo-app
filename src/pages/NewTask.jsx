@@ -5,16 +5,19 @@ import { url } from '../const';
 import { Header } from '../components/Header';
 import './newTask.scss';
 import { useNavigate } from 'react-router-dom';
+import moment from "moment"
 
 export const NewTask = () => {
   const [selectListId, setSelectListId] = useState();
   const [lists, setLists] = useState([]);
   const [title, setTitle] = useState('');
+  const [limit, setLimit] = useState('');
   const [detail, setDetail] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [cookies] = useCookies();
   const navigate = useNavigate();
   const handleTitleChange = (e) => setTitle(e.target.value);
+  const handleLimitChange = (e) => setLimit(e.target.value);
   const handleDetailChange = (e) => setDetail(e.target.value);
   const handleSelectList = (id) => setSelectListId(id);
   const onCreateTask = () => {
@@ -22,6 +25,7 @@ export const NewTask = () => {
       title: title,
       detail: detail,
       done: false,
+      limit: moment(limit).format()
     };
 
     axios
@@ -59,6 +63,7 @@ export const NewTask = () => {
       <Header />
       <main className="new-task">
         <h2>タスク新規作成</h2>
+        <pre>{JSON.stringify(limit, null, 2)}</pre>
         <p className="error-message">{errorMessage}</p>
         <form className="new-task-form">
           <label>リスト</label>
@@ -80,6 +85,15 @@ export const NewTask = () => {
             type="text"
             onChange={handleTitleChange}
             className="new-task-title"
+          />
+          <br />
+          <label>期限</label>
+          <br />
+          <input
+            value={limit}
+            type="datetime-local"
+            onChange={handleLimitChange}
+            className="new-task-limit"
           />
           <br />
           <label>詳細</label>

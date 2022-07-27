@@ -5,6 +5,7 @@ import axios from 'axios';
 import { Header } from '../components/Header';
 import { url } from '../const';
 import './home.scss';
+import moment from "moment"
 
 export const Home = () => {
   const [isDoneDisplay, setIsDoneDisplay] = useState('todo'); // todo->未完了 done->完了
@@ -162,9 +163,19 @@ const Tasks = (props) => {
               to={`/lists/${selectListId}/tasks/${task.id}`}
               className="task-item-link"
             >
-              {task.title}
+              題名：{task.title}
               <br />
-              {task.done ? '完了' : '未完了'}
+              状態：{task.done ? '完了' : '未完了'}
+              <br />
+              期限：{task.limit ?? '期限は設定されていません'}
+              {!!task.limit && (<>
+                <br />
+                {moment(task.limit).diff(moment(), 'days') >= 0 ? (<span className='green'>
+                  期限日まであと{moment(task.limit).diff(moment(), 'days')}日
+                </span>) : (<span className='red'>
+                  期限日を{-moment(task.limit).diff(moment(), 'days')}日経過してます
+                </span>)}
+              </>)}
             </Link>
           </li>
         ))}
