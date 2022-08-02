@@ -167,7 +167,7 @@ const Tasks = (props) => {
               <br />
               状態：{task.done ? '完了' : '未完了'}
               <br />
-              期限：{task.limit ?? '期限は設定されていません'}
+              期限：{task.limit ? moment(task.limit).format('YYYY年MM月DD日 HH時mm分') : '期限は設定されていません'}
               {!!task.limit && (<>
                 <br />
                 {moment(task.limit).diff(moment(), 'days') >= 0 ? (<span className='green'>

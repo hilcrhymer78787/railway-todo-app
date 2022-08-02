@@ -63,7 +63,6 @@ export const NewTask = () => {
       <Header />
       <main className="new-task">
         <h2>タスク新規作成</h2>
-        <pre>{JSON.stringify(limit, null, 2)}</pre>
         <p className="error-message">{errorMessage}</p>
         <form className="new-task-form">
           <label>リスト</label>
