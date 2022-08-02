@@ -5,7 +5,7 @@ import { useCookies } from 'react-cookie';
 import { url } from '../const';
 import { useNavigate, useParams } from 'react-router-dom';
 import './editTask.scss';
-import moment from "moment"
+import dayjs from "dayjs"
 
 export const EditTask = () => {
   const navigate = useNavigate();
@@ -26,7 +26,7 @@ export const EditTask = () => {
       title: title,
       detail: detail,
       done: isDone,
-      limit: moment(limit).format()
+      limit: dayjs(limit).format()
     };
 
     axios
@@ -69,7 +69,7 @@ export const EditTask = () => {
       .then((res) => {
         const task = res.data;
         setTitle(task.title);
-        setLimit(moment(task.limit).format('YYYY-MM-DDTHH:mm'));
+        setLimit(dayjs(task.limit).format('YYYY-MM-DDTHH:mm'));
         setDetail(task.detail);
         setIsDone(task.done);
       })

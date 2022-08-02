@@ -5,7 +5,7 @@ import { url } from '../const';
 import { Header } from '../components/Header';
 import './newTask.scss';
 import { useNavigate } from 'react-router-dom';
-import moment from "moment"
+import dayjs from "dayjs"
 
 export const NewTask = () => {
   const [selectListId, setSelectListId] = useState();
@@ -25,7 +25,7 @@ export const NewTask = () => {
       title: title,
       detail: detail,
       done: false,
-      limit: moment(limit).format()
+      limit: dayjs(limit).format()
     };
 
     axios
