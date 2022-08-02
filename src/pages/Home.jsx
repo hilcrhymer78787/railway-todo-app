@@ -151,6 +151,9 @@ const Tasks = (props) => {
     );
   }
 
+  const getDiff = (task) => {
+    return dayjs(task.limit).diff(dayjs(), 'days');
+  }
   return (
     <ul>
       {tasks
@@ -170,10 +173,10 @@ const Tasks = (props) => {
               期限：{task.limit ? dayjs(task.limit).format('YYYY年MM月DD日 HH時mm分') : '期限は設定されていません'}
               {!!task.limit && (<>
                 <br />
-                {dayjs(task.limit).diff(dayjs(), 'days') >= 0 ? (<span className='green'>
-                  期限日まであと{dayjs(task.limit).diff(dayjs(), 'days')}日
+                {getDiff(task) >= 0 ? (<span className='green'>
+                  期限日まであと{getDiff(task)}日
                 </span>) : (<span className='red'>
-                  期限日を{-dayjs(task.limit).diff(dayjs(), 'days')}日経過してます
+                  期限日を{-getDiff(task)}日経過してます
                 </span>)}
               </>)}
             </Link>
