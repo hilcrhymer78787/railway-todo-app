@@ -15,7 +15,7 @@ export const Home = () => {
   const [errorMessage, setErrorMessage] = useState('');
   const [cookies] = useCookies();
   const handleIsDoneDisplayChange = (e) => setIsDoneDisplay(e.target.value);
-  const escFunction = (event) => {
+  const keyboardFunc = (event) => {
     const activeTab = document.querySelector('.list-tab-item.active');
     if (!activeTab) return;
     if (event.keyCode === 39) {
@@ -28,7 +28,7 @@ export const Home = () => {
     }
   };
   useEffect(() => {
-    document.addEventListener("keydown", escFunction, false);
+    document.addEventListener("keydown", keyboardFunc, false);
     axios
       .get(`${url}/lists`, {
         headers: {
