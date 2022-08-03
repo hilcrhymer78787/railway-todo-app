@@ -15,20 +15,7 @@ export const Home = () => {
   const [errorMessage, setErrorMessage] = useState('');
   const [cookies] = useCookies();
   const handleIsDoneDisplayChange = (e) => setIsDoneDisplay(e.target.value);
-  const keyboardFunc = (event) => {
-    const activeTab = document.querySelector('.list-tab-item.active');
-    if (!activeTab) return;
-    if (event.keyCode === 39) {
-      const id = activeTab.nextElementSibling.ariaLabel;
-      handleSelectList(id)
-    }
-    if (event.keyCode === 37) {
-      const id = activeTab.previousElementSibling.ariaLabel;
-      handleSelectList(id)
-    }
-  };
   useEffect(() => {
-    document.addEventListener("keydown", keyboardFunc, false);
     axios
       .get(`${url}/lists`, {
         headers: {
@@ -103,10 +90,13 @@ export const Home = () => {
                 <li
                   key={key}
                   className={`list-tab-item ${isActive ? 'active' : ''}`}
-                  aria-label={list.id}
-                  onClick={() => handleSelectList(list.id)}
                 >
-                  {list.title}
+                  <button
+                    tabindex={key}
+                    type="button"
+                    onClick={() => handleSelectList(list.id)}>
+                    {list.title}
+                  </button>
                 </li>
               );
             })}
